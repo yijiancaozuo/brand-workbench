@@ -1,0 +1,20 @@
+/* 由 品牌资产工作台 从 01_品牌基础/色彩系统.json 自动导出 · 2026-11-21 23:04:12 · 请勿手改，改令牌 JSON */
+:root {
+  --brand-primary: #0F4C5C;
+  --brand-primary-light: #D9E6E8;
+  --brand-accent: #E0A458;
+  --brand-neutral-900: #1E2328;
+  --brand-neutral-600: #5B6670;
+  --brand-neutral-200: #D5D9DD;
+  --brand-background: #F6F3EE;
+  --brand-white: #FFFFFF;
+  --brand-chart-1: #0F4C5C;
+  --brand-chart-2: #E0A458;
+  --brand-chart-3: #5E8C96;
+  --brand-chart-4: #B7C9CC;
+  --brand-chart-5: #8A6A3E;
+  --brand-chart-6: #5B6670;
+  --brand-gradient-cover: linear-gradient(135deg, #0F4C5C, #1B6B7D);
+  --brand-font-heading: "Noto Sans CJK SC", "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --brand-font-body: "Noto Sans CJK SC", "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+}

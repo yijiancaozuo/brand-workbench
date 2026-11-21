@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>品牌资产工作台</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" id="brandcss" href="data/tokens_CHXDR.css"></head>
+<body>
+<header>
+  <div class="logo">◆ 品牌资产工作台</div>
+  <nav>
+    <a href="#dashboard" data-tab="dashboard">仪表盘</a>
+    <a href="#brand" data-tab="brand">品牌与上传</a>
+    <a href="#assets" data-tab="assets">资产浏览</a>
+    <a href="#generate" data-tab="generate">一键生成</a>
+    <a href="#review" data-tab="review">审核 <b id="pendingBadge" class="badge"></b></a>
+  </nav>
+  <div class="brandsel">品牌：<select id="brandSel"></select></div>
+</header>
+<div class="staticbar">📌 在线静态预览版：可浏览资产、预览 PPT / 画册 / 海报 / 文案 / 设计令牌；<b>上传、一键生成、审核仅本地版可用</b>（数据快照：2026-11-21）</div>
+<div id="placeholderBar" class="warnbar hidden"></div>
+<main>
+<section id="tab-dashboard" class="tab">
+  <div class="cards" id="kpis"></div>
+  <div class="grid2">
+    <div class="panel"><h3>资产分类统计</h3><div id="catBars"></div></div>
+    <div class="panel"><h3>当前品牌</h3><div id="brandCard"></div></div>
+  </div>
+  <div class="grid2">
+    <div class="panel"><h3>最近生成</h3><div id="recentList"></div></div>
+    <div class="panel"><h3>状态流转记录</h3><div id="historyList"></div></div>
+  </div>
+  <div class="panel"><h3>工具接入状态</h3><div id="toolsList"></div></div>
+</section>
+
+<section id="tab-brand" class="tab">
+  <div class="grid2">
+    <div class="panel">
+      <h3>① 上传品牌素材（一次上传，所有输出自动引用）</h3>
+      <div class="upl">
+        <label>类型 <select id="upKind">
+          <option value="logo">Logo（png/jpg/svg，自动取色）</option>
+          <option value="color">色彩定义（json/txt/css/md，自动识别色值）</option>
+          <option value="font">字体（ttf/otf）</option>
+          <option value="photo">产品图 / 图片（png/jpg）</option>
+          <option value="doc">品牌文档 / VI / DESIGN.md（pdf/docx/md）</option>
+          <option value="ppt">PPT 模板（pptx/potx）</option>
+        </select></label>
+        <label>描述（可选，用于命名） <input id="upDesc" placeholder="如：主标志横版 / 标题字体 / 正文字体"></label>
+        <label class="chk"><input type="checkbox" id="upApply" checked> 自动写入设计令牌</label>
+        <div id="drop" class="drop">把文件拖到这里，或 <u>点击选择</u>（可多选）<input type="file" id="upFile" multiple hidden></div>
+        <div id="upResult"></div>
+      </div>
+      <p class="hint">存放位置：Logo→01_品牌基础/Logo/源文件，色彩→01_品牌基础/色彩系统，字体→01_品牌基础/字体，产品图→04_素材库/图片/产品，文档→01_品牌基础/视觉规范，PPT 模板→02_PPT模板与演示文稿/模板。文件名按《命名规范》自动生成。可参考 <a href="https://github.com/VoltAgent/awesome-design-md" target="_blank">awesome-design-md</a> 的 DESIGN.md 作为品牌文档上传。</p>
+    </div>
+    <div class="panel">
+      <h3>② 设计令牌（唯一数据源）</h3>
+      <div id="tokFile" class="muted"></div>
+      <div id="swatches" class="swatches"></div>
+      <h4>快速换色（主色 + 强调色 → 自动推导全套）</h4>
+      <div class="row"><label>主色 <input type="color" id="cPrimary"></label><label>强调色 <input type="color" id="cAccent"></label><button id="btnRegen">应用并推导</button></div>
+      <h4>逐项编辑</h4><div id="colorEdit" class="coloredit"></div>
+      <h4>字体 / 间距 / 品牌信息</h4>
+      <div class="form2">
+        <label>标题字体 <input id="fTitle"></label><label>正文字体 <input id="fBody"></label>
+        <label>基准间距 px <input id="sBase" type="number"></label><label>圆角 px <input id="sRadius" type="number"></label>
+        <label>页边距比例 <input id="sMargin" type="number" step="0.01"></label><label>行高 <input id="sLh" type="number" step="0.1"></label>
+        <label>品牌名 <input id="iName"></label><label>英文名 <input id="iEn"></label>
+        <label>口号 <input id="iSlogan"></label><label>网址 <input id="iUrl"></label>
+        <label>联系方式 <input id="iContact"></label><label>关键词（逗号分隔） <input id="iKw"></label>
+      </div>
+      <div class="row"><button id="btnSaveTok">保存令牌</button><label class="chk"><input type="checkbox" id="confirmReal"> 已是正式品牌色（去掉“占位”标记）</label></div>
+      <details><summary>CSS 变量导出（style-dictionary 风格）</summary><pre id="cssOut"></pre><a href="data/tokens_CHXDR.css" id="cssLink" target="_blank">打开 tokens.css</a></details>
+    </div>
+  </div>
+  <div class="panel"><h3>品牌列表</h3><div id="brandList"></div>
+    <div class="row"><input id="nbCode" placeholder="代码，如 HXKJ" size="8"><input id="nbName" placeholder="品牌名称"><button id="btnAddBrand">新增品牌</button></div></div>
+</section>
+
+<section id="tab-assets" class="tab">
+  <div class="row"><div id="catFilter" class="chips"></div><input id="q" placeholder="搜索文件名…"><label class="chk"><input type="checkbox" id="onlyBrand"> 只看当前品牌</label></div>
+  <div id="assetGrid" class="agrid"></div>
+</section>
+
+<section id="tab-generate" class="tab">
+  <div class="grid2">
+    <div class="panel">
+      <h3>一键生成（读取当前品牌设计令牌）</h3>
+      <div class="form1">
+        <label>主题 * <input id="gTopic" placeholder="如：出海行动人 品牌发布"></label>
+        <label>副标题 <input id="gSub" placeholder="留空则使用品牌口号"></label>
+        <label>要点（每行一条，可写「标题：要点1；要点2」，留空自动套模板） <textarea id="gBullets" rows="5"></textarea></label>
+        <div><b>输出类型</b><div id="gOutputs" class="chips"></div></div>
+        <div class="row"><label>PPT 模板 <select id="gTpl"></select></label><label>PPT 引擎 <select id="gEngine"></select></label></div>
+        <div class="row"><label class="chk"><input type="checkbox" class="gRatio" value="16x9" checked>16:9</label><label class="chk"><input type="checkbox" class="gRatio" value="4x3" checked>4:3</label></div>
+        <div><b>海报尺寸</b><div id="gSizes" class="chips"></div></div>
+        <div><b>会议物料</b><div id="gConf" class="chips"></div></div>
+        <label class="chk"><input type="checkbox" id="gDearflip" checked> 画册附带 DearFlip 3D 版（仅限非商用预览）</label>
+        <button id="btnGen" class="primary big">⚡ 一键生成</button>
+        <div id="genStatus" class="muted"></div>
+      </div>
+    </div>
+    <div class="panel"><h3>本次生成结果（已进入 06_审核与归档/待内审）</h3><div id="genResult" class="muted">尚未生成</div></div>
+  </div>
+</section>
+
+<section id="tab-review" class="tab">
+  <div class="row"><div id="revFilter" class="chips"></div></div>
+  <div id="revList"></div>
+</section>
+</main>
+<div id="modal" class="modal hidden"><div class="mbox"><button class="close" onclick="closeModal()">×</button><div id="mbody"></div></div></div>
+<script src="app.js"></script>
+</body></html>

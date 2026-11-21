@@ -1,0 +1,27 @@
+/* 由 品牌资产工作台 从 01_品牌基础/色彩系统/CHXDR_CLR_设计令牌_全量_v01_20261121.json 自动导出 · 2026-11-21 23:04:12 · 请勿手改，改令牌 JSON */
+:root {
+  --brand-primary: #0B4F8A;
+  --brand-primary-light: #DCE6EE;
+  --brand-accent: #FF8A00;
+  --brand-neutral-900: #101A23;
+  --brand-neutral-600: #576B82;
+  --brand-neutral-200: #CFD7E1;
+  --brand-background: #F0F3F5;
+  --brand-white: #FFFFFF;
+  --brand-chart-1: #0B4F8A;
+  --brand-chart-2: #FF8A00;
+  --brand-chart-3: #6C95B8;
+  --brand-chart-4: #FFB866;
+  --brand-chart-5: #073760;
+  --brand-gradient-cover: linear-gradient(135deg, #0B4F8A, #5483AD);
+  --brand-font-heading: "Noto Sans CJK SC", "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --brand-font-body: "Noto Sans CJK SC", "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --brand-space-1: 8px;
+  --brand-space-2: 16px;
+  --brand-space-3: 24px;
+  --brand-space-4: 32px;
+  --brand-space-6: 48px;
+  --brand-space-8: 64px;
+  --brand-radius: 12px;
+  --brand-line-height: 1.6;
+}
